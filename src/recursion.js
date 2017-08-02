@@ -139,14 +139,22 @@ var palindrome = function(string) {
 		}
 }
 
-// *** 11. Write a function that returns the remainder of x divided by y without using the
+// ?*** 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+//The recursive function is subtracting y from x. The function is called until x === 0 or x > y. If x === 0, return 0. If x > y, return y.
+  if (x === 0) {
+    return 0;
+  } if (x < y) {
+    return x;
+  }
 
-};
+	return modulo(x - y, y);
+
+}
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
