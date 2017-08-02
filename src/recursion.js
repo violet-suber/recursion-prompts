@@ -5,20 +5,13 @@
 // Example:  5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5);  // 120
 var factorial = function(n) {
-  function getArray(num) {
-  var array = [];
-  array.push(num);
-  if(num === 1) {
-    return array;
+  if (n < 0) {
+    return null;
   }
-  return array.concat(getArray(num - 1));
+  if (n === 0) {
+    return 1;
   }
-
-  var factorialArray = getArray(n);
-
-  return factorialArray.reduce(function(seed, current) {
-    return seed * current;
-  });
+  return n * factorial(n - 1);
 };
 
 // 2. Compute the sum of an array of integers.
@@ -33,6 +26,17 @@ var sum = function(array) {
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
 //Use reduce to iterate through the array and add one value to another. Check to see if the next value is an array. If it is an array, recursive call that array so the numbers in that array are added together.
+if (array.length === 0) {
+  return 0;
+} if (array.length === 1){
+  return array[0];
+}
+array.reduce(function(seed, current) {
+  if (Array.isArray(current)) {
+		return arraySum(current);
+	} else {
+	return seed + current; }
+});
 };
 
 
@@ -387,8 +391,14 @@ var nestedEvenSum = function(obj) {
 var flatten = function(arrays) {
   var newArray = [];
   for (var i = 0; i < arrays.length; i++){
+  if (Array.isArray(arrays[i])) {
+    var flattened = flatten(arrays[i]);
+    flattened.forEach(function(v) {
+      newArray.push(v);
+    });
+  } else {
     newArray.push(arrays[i]);
-  }
+  } }
   return newArray;
 };
 
