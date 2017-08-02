@@ -168,18 +168,34 @@ var multiply = function(x, y) {
   }
 };
 
-// *** 13. Write a function that divides two numbers without using the / operator  or
+// ?*** 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
 var divide = function(x, y) {
+	var count = Array.from(arguments)[2] || 0;
+  if (x === 0) {
+    return count;
+  } if (x > 0 && x < y) {
+		return count;
+    /* var remainder = x;
+		return remainder; */
+  }
+	return divide(x - y, y, ++count);
 
-};
-
-// *** 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
+}
+// 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
 // Example:  gcd(4,36);  // 4
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+if (x < 0 || y < 0) {
+  return null;
+}
+if ((x % y) === 0){
+  return y;
+} else {
+  return gcd(y, x % y);
+}
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -369,6 +385,11 @@ var nestedEvenSum = function(obj) {
 // *** 29. Flatten an array containing nested arrays.
 // Example: flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 var flatten = function(arrays) {
+  var newArray = [];
+  for (var i = 0; i < arrays.length; i++){
+    newArray.push(arrays[i]);
+  }
+  return newArray;
 };
 
 // 30. Given a string, return an object containing tallies of each letter.
