@@ -150,8 +150,7 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
-//The recursive function is subtracting y from x. The function is called until x === 0 or x > y. If x === 0, return 0. If x > y, return y.
-  if (x === 0) {
+    if (x === 0) {
     return 0;
   } if (x < y) {
     return x;
@@ -175,14 +174,16 @@ var multiply = function(x, y) {
 
 // ?*** 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
+// Put in remainder
+/* var remainder = x;
+		return remainder; */
 var divide = function(x, y) {
 	var count = Array.from(arguments)[2] || 0;
   if (x === 0) {
     return count;
   } if (x > 0 && x < y) {
 		return count;
-    /* var remainder = x;
-		return remainder; */
+
   }
 	return divide(x - y, y, ++count);
 
@@ -295,6 +296,15 @@ var rMap = function(array, callback){
 // countKeysInObj(testobj, 'r') // 1
 // countKeysInObj(testobj, 'e') // 2
 var countKeysInObj = function(obj, key) {
+var count = 0;
+  for (var k in obj) {
+    if (k === key) {
+      count += 1;
+    } if (typeof obj[k] === "object") {
+      return countKeysInObj(obj[k], key);
+    }
+  }
+return count;
 };
 
 // *** 22. Write a function that counts the number of times a value occurs in an object.
@@ -302,11 +312,32 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(testobj, 'r') // 2
 // countValuesInObj(testobj, 'e') // 1
 var countValuesInObj = function(obj, value) {
+  var count = 0;
+  for (var key in obj) {
+    if (obj[key] === value) {
+      count += 1;
+    } if (typeof obj[key] === "object") {
+      return countValuesInObj(obj[key], value);
+    }
+  }
+  return count;
 };
 
 // *** 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 var replaceKeysInObj = function(obj, key, newKey) {
+	var newObj = {};
+	for (var k in obj) {
+    if (k === key) {
+      newObj[newKey] = obj[k];
+    } else {
+      newObj[k] = obj[k];
+    }
+  } if (typeof obj[k] === "object") {
+			return replaceKeysInObj(obj[k], key, newKey);
+		}
+
+	return newObj;
 };
 
 // 24. Get the first n Fibonacci numbers.  In the Fibonacci Sequence, each subsequent
@@ -385,6 +416,17 @@ var capitalizeFirst = function(array) {
 // };
 // nestedEvenSum(obj1); // 10
 var nestedEvenSum = function(obj) {
+  var evens = [];
+  for (var key in obj) {
+    if (obj[key] % 2 === 0) {
+      evens.push(obj.key);
+    } if (typeof obj[key] === obj) {
+      evens.concat(nestedEvenSum(obj[key]));
+    }
+  }
+return evens.reduce(function(seed, current) {
+  return seed + current;
+})
 };
 
 // *** 29. Flatten an array containing nested arrays.
@@ -394,9 +436,7 @@ var flatten = function(arrays) {
   for (var i = 0; i < arrays.length; i++){
   if (Array.isArray(arrays[i])) {
     var flattened = flatten(arrays[i]);
-    flattened.forEach(function(v) {
-      newArray.push(v);
-    });
+    newArray.concat(flattened);
   } else {
     newArray.push(arrays[i]);
   } }
@@ -446,10 +486,23 @@ return compress(list.slice(1), newArray, ++compare);
 // *** 32. Augument every element in a list with a new value where each element is an array
 // itself.
 // Example: augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
+// If the index is an array, push aug.
+// If the index contains another array, recursive call.
 var augmentElements = function(array, aug) {
+  for (var i = 0; i < array.length; i++) {
+    if (Array.isArray(array[i])) {
+      if (array[i].length > 0) {
+        for (var j = 0; j < array[j].length; j++){
+        augmentElements(array[j], aug);
+        }
+      }
+      array[i].push(array[i], aug);
+    }
+  }
+  return array;
 };
 
-// *** 33. Reduce a series of zeroes to a single 0.
+// 33. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array, item = 0, res = []) {
