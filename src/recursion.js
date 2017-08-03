@@ -30,18 +30,18 @@ var arraySum = function(array) {
 if (array.length === 0) {
   return 0;
 } if (array.length === 1){
+    if (Array.isArray(array[0])){
+      arraySum(array[0]);
+    }
   return array[0];
 }
-array.reduce(function(seed, current) {
+return array.reduce(function(seed, current) {
   if (Array.isArray(current)) {
 		return arraySum(current);
 	} else {
 	return seed + current; }
 });
 };
-
-
-
 
 // 4. Check if a number is even.
 var isEven = function(n) {
@@ -325,19 +325,25 @@ var countValuesInObj = function(obj, value) {
 
 // *** 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
-var replaceKeysInObj = function(obj, key, newKey) {
-	var newObj = {};
-	for (var k in obj) {
-    if (k === key) {
-      newObj[newKey] = obj[k];
-    } else {
-      newObj[k] = obj[k];
-    }
-  } if (typeof obj[k] === "object") {
-			return replaceKeysInObj(obj[k], key, newKey);
-		}
 
-	return newObj;
+var replaceKeysInObj = function(obj, key, newKey) {
+    // loop through object
+  for (var k in obj) {
+    // if current value is object
+    if (typeof obj[k] === "object") {
+      // recurse
+      replaceKeysInObj(obj[k], key, newKey);
+    }
+    // if key equals new key
+    if (k === key) {
+      // create new key with new value
+      obj[newKey] = obj[k];
+      // delete old key
+      delete obj[k];
+    }
+  }
+  // return obj
+  return obj;      
 };
 
 // 24. Get the first n Fibonacci numbers.  In the Fibonacci Sequence, each subsequent
@@ -499,6 +505,7 @@ var augmentElements = function(array, aug) {
       array[i].push(array[i], aug);
     }
   }
+  console.log(array);
   return array;
 };
 
