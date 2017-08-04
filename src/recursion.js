@@ -262,12 +262,21 @@ var divide = function(x, y) {
 var gcd = function(x, y) {
 if (x < 0 || y < 0) {
   return null;
-}
-if ((x % y) === 0){
+} 
+if (x > y) {
+  if ((x % y) === 0){
   return y;
-} else {
-  return gcd(y, x % y);
+} 
+return gcd(y, x % y); 
 }
+
+if (y > x) {
+  if ((y % x) === 0){
+  return x;
+} 
+return gcd(x, y % x);
+}
+
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
