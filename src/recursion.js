@@ -25,22 +25,47 @@ var sum = function(array) {
 
 // *** 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
+/*  I: An array
+    O: A number, the sum of all elements in the array
+    C: Must use recursion, cannot mutate the input array
+    E: Empty arrays return 0, arrays with one integer return that integer
+ */
 var arraySum = function(array) {
-//Use reduce to iterate through the array and add one value to another. Check to see if the next value is an array. If it is an array, recursive call that array so the numbers in that array are added together.
+// If the array is empty
 if (array.length === 0) {
+  // Return 0
   return 0;
-} if (array.length === 1){
+} // If the array only has one value
+if (array.length === 1){
+  // If that value is another array
     if (Array.isArray(array[0])){
-      arraySum(array[0]);
+    // Recurse
+    return arraySum(array[0]);
     }
+  // Return that one value
   return array[0];
 }
-return array.reduce(function(seed, current) {
+
+/* if (Array.isArray(array[0])) {
+  array[0] = arraySum(array[0]);
+} */
+
+// Add all items in an array together, assign that to a var result
+var result = array.reduce(function(seed, current) {
+  // If the current value is another array
   if (Array.isArray(current)) {
-		return arraySum(current);
-	} else {
-	return seed + current; }
+    // Recurse
+		current = arraySum(current);
+  } if (Array.isArray(seed)) {
+    seed = arraySum(seed);
+  }
+  // If the current value is not an array (just a number)
+  else {
+    // Add the current value to the seed
+	  return seed + current; }
 });
+// Return result
+return result;
 };
 
 // 4. Check if a number is even.
@@ -295,15 +320,26 @@ var rMap = function(array, callback){
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countKeysInObj(testobj, 'r') // 1
 // countKeysInObj(testobj, 'e') // 2
+/*  I: An object, and the key to be counted in the object.
+    O: A number, the count of a particular key in the object.
+    C: Must use recursion
+    E: ? */
 var countKeysInObj = function(obj, key) {
+// Make a counter
 var count = 0;
-  for (var k in obj) {
-    if (k === key) {
+// Iterate through the object
+for (var k in obj) {
+  // If the current value's key is the one we want to count
+  if (k === key) {
+    // Add 1 to the counter
       count += 1;
-    } if (typeof obj[k] === "object") {
-      return countKeysInObj(obj[k], key);
-    }
+    } // If the current value is an object
+  if (typeof obj[k] === "object") {
+    // Recurse
+    count += countKeysInObj(obj[k], key);
+    } 
   }
+// Return the counter
 return count;
 };
 
@@ -311,19 +347,30 @@ return count;
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countValuesInObj(testobj, 'r') // 2
 // countValuesInObj(testobj, 'e') // 1
+/*  I: An object, and a value to count the occurences of in the object.
+    O: A number, the the number of occurences of the value.
+    C: Must use recursion
+    E: ? */
 var countValuesInObj = function(obj, value) {
-  var count = 0;
-  for (var key in obj) {
+//  Make a counter
+var count = 0;
+// Iterate through the object
+for (var key in obj) {
+  // If the current value is an object
+    if (typeof obj[key] === "object") {
+      // Recurse
+      count += countValuesInObj(obj[key], value);
+    } // If the current value is the value we want to count
     if (obj[key] === value) {
+      // Add 1 to the counter
       count += 1;
-    } if (typeof obj[key] === "object") {
-      return countValuesInObj(obj[key], value);
-    }
+    } 
   }
+  // Return the count
   return count;
 };
 
-// *** 23. Find all keys in an object (and nested objects) by a provided name and rename
+// 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 
 var replaceKeysInObj = function(obj, key, newKey) {
@@ -421,6 +468,11 @@ var capitalizeFirst = function(array) {
 //   e: {e: {e: 2}, ee: 'car'}
 // };
 // nestedEvenSum(obj1); // 10
+/*  I: An object
+    O: A number, the sum of all even values in the object
+    C: Must use recursion
+    E: */
+
 var nestedEvenSum = function(obj) {
   var evens = [];
   for (var key in obj) {
