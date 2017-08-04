@@ -459,7 +459,7 @@ var capitalizeFirst = function(array) {
   return capitalizeFirst(array, ++i, newArray);
 };
 
-// *** 28. Return the sum of all even numbers in an object containing nested objects.
+// 28. Return the sum of all even numbers in an object containing nested objects.
 // var obj1 = {
 //   a: 2,
 //   b: {b: 2, bb: {b: 3, bb: {b: 2}}},
@@ -494,6 +494,10 @@ return sum;
 
 // *** 29. Flatten an array containing nested arrays.
 // Example: flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
+/*  I: A nested array
+    O: A new array that is not nested
+    C: Must use recursion
+    E: ? */
 var flatten = function(arrays) {
   var newArray = [];
   for (var i = 0; i < arrays.length; i++){
@@ -549,20 +553,28 @@ return compress(list.slice(1), newArray, ++compare);
 // *** 32. Augument every element in a list with a new value where each element is an array
 // itself.
 // Example: augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
-// If the index is an array, push aug.
-// If the index contains another array, recursive call.
+/*  I: An nested array and an element to put in each array
+    O: A new nested array with the new element added
+    C: Must use recursion
+    E: ? */
 var augmentElements = function(array, aug) {
+// Iterate through the array
   for (var i = 0; i < array.length; i++) {
+    // If the current value is an array
     if (Array.isArray(array[i])) {
+      // If the array is not empty
       if (array[i].length > 0) {
+        // Iterate through that array
         for (var j = 0; j < array[j].length; j++){
+        // Recurse
         augmentElements(array[j], aug);
         }
       }
-      array[i].push(array[i], aug);
+      // Augment to the array
+      array[i].push(aug);
     }
   }
-  console.log(array);
+  //Return the array
   return array;
 };
 
