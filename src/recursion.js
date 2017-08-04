@@ -23,49 +23,34 @@ var sum = function(array) {
   } return copy[0] += sum(copy.slice(1));
 };
 
-// *** 3. Sum all numbers in an array containing nested arrays.
+// 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 /*  I: An array
     O: A number, the sum of all elements in the array
     C: Must use recursion, cannot mutate the input array
     E: Empty arrays return 0, arrays with one integer return that integer
  */
+
 var arraySum = function(array) {
 // If the array is empty
 if (array.length === 0) {
-  // Return 0
+  // Reutrn 0
   return 0;
-} // If the array only has one value
-if (array.length === 1){
-  // If that value is another array
-    if (Array.isArray(array[0])){
-    // Recurse
-    return arraySum(array[0]);
-    }
-  // Return that one value
-  return array[0];
 }
-
-/* if (Array.isArray(array[0])) {
-  array[0] = arraySum(array[0]);
-} */
-
-// Add all items in an array together, assign that to a var result
-var result = array.reduce(function(seed, current) {
+// Create a variable to hold the total of all the numbers in the array added
+var sum = 0;
+// Iterate through the array
+for (var i = 0; i < array.length; i++) {
   // If the current value is another array
-  if (Array.isArray(current)) {
+  if (Array.isArray(array[i])) {
     // Recurse
-		current = arraySum(current);
-  } if (Array.isArray(seed)) {
-    seed = arraySum(seed);
-  }
-  // If the current value is not an array (just a number)
+    sum += arraySum(array[i]);
+  } // Add the value in the array to the total
   else {
-    // Add the current value to the seed
-	  return seed + current; }
-});
-// Return result
-return result;
+  sum += array[i];}
+}
+// Return the sum
+return sum; 
 };
 
 // 4. Check if a number is even.
@@ -550,7 +535,7 @@ var compare = Array.from(arguments)[2] || 0;
 return compress(list.slice(1), newArray, ++compare);
 };
 
-// *** 32. Augument every element in a list with a new value where each element is an array
+// 32. Augument every element in a list with a new value where each element is an array
 // itself.
 // Example: augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 /*  I: An nested array and an element to put in each array
