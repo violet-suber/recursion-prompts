@@ -185,19 +185,28 @@ var multiply = function(x, y) {
 
 // ?*** 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
-// Put in remainder
-/* var remainder = x;
-		return remainder; */
+/*  I: Two numbers, a dividend and a divisor
+    O: A number, the quotient
+    C: Must use recursion. Cannot use / operator or math.
+    E:  */
+
+// PSEUDOCODE (wasn't allowed in the function itself because of slashes)
+// If y = 0
+  // Since you cannot divide by 0, return NaN
+// Make a counter to determine how many times y can be subtracted from x.
+// Base Case: y is subrtracted so many times that x is either less than y or a negative number
+  // Return counter
+// Recursive case: subtract y from x as the new x, increase the counter because y is subtracted one more time.  
+
 var divide = function(x, y) {
-	var count = Array.from(arguments)[2] || 0;
-  if (x === 0) {
+  if (y === 0) {
+    return NaN;
+  } 
+  var count = Array.from(arguments)[2] || 0;
+  if (x < 0 || x < y) {
     return count;
-  } if (x > 0 && x < y) {
-		return count;
-
   }
-	return divide(x - y, y, ++count);
-
+  return divide(x - y, y, ++count);
 }
 // 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
