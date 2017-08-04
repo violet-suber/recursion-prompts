@@ -160,16 +160,72 @@ var palindrome = function(string) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
-var modulo = function(x, y) {
-    if (x === 0) {
+/*  I: Two numbers, a divided and a divisor
+    O: The remainder of these two numbers divided
+    C: Must use recursion, no % operator or any other math operators
+    E: If y = 0, return NaN */
+
+var modulo = function (x, y) {
+// Edge case: if y = 0
+if (y === 0) {
+  // Return NaN
+  return NaN;
+} 
+
+// If x is positive
+if (x >= 0) {
+  // If y is negative 
+  if (y < 0) {
+    // If x is positive, the result will always be positive, so y can be changed to positive for the same result
+    y = -y;
+  } // Base Case 1: y subtracted from x to the point that x reaches 0
+  if (x === 0) {
+    // Return 0
     return 0;
-  } if (x < y) {
+  } // Base Case 2: x does not reach 0, but it is less than y so y can no longer be subtracted.
+  if (x > 0 && x < y) {
+    // Return x
     return x;
   }
-
-	return modulo(x - y, y);
-
+  // Recursive case: keep subtracting y from x 
+  return modulo(x - y, y);
 }
+
+// If x is negative
+  if (x < 0) {
+    // If x is negative, the result will always be negtive, so x and/or y can be converted to positive to get the postive version of the result, which then can be made negative.
+    x = -x;
+    // If y is also negative
+    if (y < 0) {
+      // Make y positive
+      y = -y;
+    }
+    if (x === 0) {
+      // Return 0
+      return 0;
+    } // Base Case 2: x does not reach 0, but it is less than y so y can no longer be subtracted.
+    if (x > 0 && x < y) {
+      // Return x, make it negative
+      return -x;
+    }
+    // Recursive case: keep subtracting y from x 
+    return modulo(x - y, y);
+  }
+
+/*
+
+// Base Case 1: y subtracted from x to the point that x reaches 0
+if (x === 0) {
+  // Return 0
+  return 0;
+} // Base Case 2: x does not reach 0, but it is less than y so y can no longer be subtracted.
+if (x > 0 && x < y) {
+  // Return x
+  return x;
+}
+// Recursive case: keep subtracting y from x 
+return modulo(x - y, y); */
+};
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
@@ -183,15 +239,15 @@ var multiply = function(x, y) {
   }
 };
 
-// ?*** 13. Write a function that divides two numbers without using the / operator  or
+// 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
 /*  I: Two numbers, a dividend and a divisor
     O: A number, the quotient
     C: Must use recursion. Cannot use / operator or math.
-    E:  */
+    E: If y = 0, return NaN */
 
 // PSEUDOCODE (wasn't allowed in the function itself because of slashes)
-// If y = 0
+// Edge case: if y = 0
   // Since you cannot divide by 0, return NaN
 // Make a counter to determine how many times y can be subtracted from x.
 // Base Case: y is subrtracted so many times that x is either less than y or a negative number
@@ -208,6 +264,21 @@ var divide = function(x, y) {
   }
   return divide(x - y, y, ++count);
 }
+
+// Put in remainder
+/* var remainder = x;
+		return remainder; 
+var divide = function(x, y) {
+	var count = Array.from(arguments)[2] || 0;
+  if (x === 0) {
+    return count;
+  } if (x > 0 && x < y) {
+		return count;
+
+  }
+	return divide(x - y, y, ++count);
+
+} */
 // 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
 // Example:  gcd(4,36);  // 4
@@ -234,18 +305,19 @@ if ((x % y) === 0){
     C: Must use recursion
     E: ? */
 var compareStr = function(str1, str2) {
-  // If str1 and str2 are different lengths
-  if (str1.length !== str2.length) {
-    // Return false
-    return false;
-  }
   // Create a counter to keep track of each index in both strings when they are equal
   var i = Array.from(arguments)[2] || 0;
-  // Base case: all indexes returning true when the end of str1 is reached. Since str1 and str2 are the same length, if all for str1 are true, all for str2 should be true too.
+  // Base case: When the characters at str1 and str2 don't match
+  if (str1[i] !== str2[i]){
+    //return false
+    return false;
+  } 
+  // Base case 2: all indexes returning true when the end of str1 is reached. Since str1 and str2 are the same length, if all for str1 are true, all for str2 should be true too.
   if (str1.length === i) {
     //return true
     return true;
-  } // If the characters from both strings at a particular index are equal
+  }
+  // If the characters from both strings at a particular index are equal
   if (str1[i] === str2[i]){
     // Recursive case: Pass both strings and increment i to compare characters at the next index.
     return compareStr(str1, str2, ++i);
