@@ -155,7 +155,7 @@ var palindrome = function(string) {
 		}
 }
 
-// ?*** 11. Write a function that returns the remainder of x divided by y without using the
+// 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
 // modulo(5,2) // 1
 // modulo(17,5) // 2
@@ -165,66 +165,55 @@ var palindrome = function(string) {
     C: Must use recursion, no % operator or any other math operators
     E: If y = 0, return NaN */
 
-var modulo = function (x, y) {
+// PSEUDOCODE (wasn't allowed in the function itself because of slashes)
 // Edge case: if y = 0
-if (y === 0) {
   // Return NaN
+// If x is positive
+  // If x is positive, the result will always be positive, so y can be changed to positive for the same result
+  // If y is negative
+    // Make y positive
+  // Base Case 1: y subtracted from x to the point that x reaches 0
+    // Return 0
+  // Base Case 2: x does not reach 0, but it is less than y so y can no longer be subtracted.
+    // Return x
+  // Recursive case: keep subtracting y from x 
+// If x is negative
+   // If x is negative, the result will always be negtive, so x and/or y can be converted to positive to get the postive version of the result, which then can be made negative.
+   // If y is also negative
+    // Make y positive
+  // Base Case 1: y subtracted from x to the point that x reaches 0
+    // Return 0
+  // Base Case 2: x does not reach 0, but it is less than y so y can no longer be subtracted.
+    // Return x, make it negative
+  // Recursive case: keep subtracting y from x. Make it negative so it doesn't go through the first if statement.
+  
+var modulo = function (x, y) {
+if (y === 0) {
   return NaN;
 } 
 
-// If x is positive
-if (x >= 0) {
-  // If y is negative 
+if (x >= 0) { 
   if (y < 0) {
-    // If x is positive, the result will always be positive, so y can be changed to positive for the same result
     y = -y;
-  } // Base Case 1: y subtracted from x to the point that x reaches 0
-  if (x === 0) {
-    // Return 0
+  } if (x === 0) {
     return 0;
-  } // Base Case 2: x does not reach 0, but it is less than y so y can no longer be subtracted.
-  if (x > 0 && x < y) {
-    // Return x
+  } if (x > 0 && x < y) {
     return x;
   }
-  // Recursive case: keep subtracting y from x 
   return modulo(x - y, y);
 }
 
-// If x is negative
-  if (x < 0) {
-    // If x is negative, the result will always be negtive, so x and/or y can be converted to positive to get the postive version of the result, which then can be made negative.
-    x = -x;
-    // If y is also negative
-    if (y < 0) {
-      // Make y positive
-      y = -y;
+if (x < 0) {
+  x = -x;
+  if (y < 0) {
+    y = -y;
+  } if (x === 0) {
+    return 0;
+  } if (x > 0 && x < y) {
+    return -x;
     }
-    if (x === 0) {
-      // Return 0
-      return 0;
-    } // Base Case 2: x does not reach 0, but it is less than y so y can no longer be subtracted.
-    if (x > 0 && x < y) {
-      // Return x, make it negative
-      return -x;
-    }
-    // Recursive case: keep subtracting y from x 
-    return modulo(x - y, y);
+    return -modulo(x - y, y);
   }
-
-/*
-
-// Base Case 1: y subtracted from x to the point that x reaches 0
-if (x === 0) {
-  // Return 0
-  return 0;
-} // Base Case 2: x does not reach 0, but it is less than y so y can no longer be subtracted.
-if (x > 0 && x < y) {
-  // Return x
-  return x;
-}
-// Recursive case: keep subtracting y from x 
-return modulo(x - y, y); */
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
@@ -265,20 +254,6 @@ var divide = function(x, y) {
   return divide(x - y, y, ++count);
 }
 
-// Put in remainder
-/* var remainder = x;
-		return remainder; 
-var divide = function(x, y) {
-	var count = Array.from(arguments)[2] || 0;
-  if (x === 0) {
-    return count;
-  } if (x > 0 && x < y) {
-		return count;
-
-  }
-	return divide(x - y, y, ++count);
-
-} */
 // 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
 // Example:  gcd(4,36);  // 4
@@ -323,22 +298,6 @@ var compareStr = function(str1, str2) {
     return compareStr(str1, str2, ++i);
   }
 };
-
-/* var compareStr = function(str1, str2) {
-	if (str1.length !== str2.length) {
-		return false;
-	}
-
-	var indexCount = 0;
-
-	if (indexCount === str1.length){
-		return true;
-	}
-
-	indexCount = indexCount + 1;
-
-	return compareStr(str1.slice(1), str2.slice(1));
-}; */
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
@@ -752,18 +711,18 @@ if (targetNum === 10) {
 
 // *** EXTRA CREDIT ***
 
-// *** 36. Return the number of times a tag occurs in the DOM.
+// 36. Return the number of times a tag occurs in the DOM.
 var tagCount = function(tag, node) {
 };
 
-// *** 37. Write a function for binary search.
+// 37. Write a function for binary search.
 // Sample array:  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 // console.log(binarySearch(5)) will return '5'
 
 var binarySearch = function(array, target, min, max) {
 };
 
-// *** 38. Write a merge sort function.
+// 38. Write a merge sort function.
 // Sample array:  [34,7,23,32,5,62]
 // Sample output: [5,7,23,32,34,62]
 var mergeSort = function(array) {
