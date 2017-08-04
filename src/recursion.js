@@ -86,24 +86,6 @@ var sumBelow = function(n) {
   return (n - 1) + sumBelow(n - 1);
 };
 
-/* var sumBelow = function(n) {
-  function getArray(num) {
-    var array = [];
-    array.push(num);
-    if (num === 0) {
-      return array;
-  }
-    return array.concat(getArray(num - 1));
-  }
-  var intArray = getArray(n);
-
-	intArray.shift();
-
-  return intArray.reduce(function(seed, current) {
-  return seed + current;
-	});
-}; */
-
 // 6. Get the integers in range (x, y).
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
  var range = function (x, y){
@@ -238,24 +220,44 @@ if ((x % y) === 0){
 // compareStr('house', 'houses') // false
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
+/*  I: Two strings
+    O: A boolean, true if strings are identical
+    C: Must use recursion
+    E: ? */
 var compareStr = function(str1, str2) {
+  // If str1 and str2 are different lengths
+  if (str1.length !== str2.length) {
+    // Return false
+    return false;
+  }
+  // Create a counter to keep track of each index in both strings when they are equal
+  var i = Array.from(arguments)[2] || 0;
+  // Base case: all indexes returning true when the end of str1 is reached. Since str1 and str2 are the same length, if all for str1 are true, all for str2 should be true too.
+  if (str1.length === i) {
+    //return true
+    return true;
+  } // If the characters from both strings at a particular index are equal
+  if (str1[i] === str2[i]){
+    // Recursive case: Pass both strings and increment i to compare characters at the next index.
+    return compareStr(str1, str2, ++i);
+  }
+};
+
+/* var compareStr = function(str1, str2) {
 	if (str1.length !== str2.length) {
 		return false;
 	}
 
 	var indexCount = 0;
 
-	if(indexCount === str1.length){
+	if (indexCount === str1.length){
 		return true;
 	}
 
 	indexCount = indexCount + 1;
 
-	str1 = str1.slice(1);
-	str2 = str2.slice(1);
-
-	return compareStr(str1, str2);
-};
+	return compareStr(str1.slice(1), str2.slice(1));
+}; */
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
@@ -420,22 +422,25 @@ var fibonacci = function(n) {
 // nthFibo(5); // 5
 // nthFibo(7); // 13
 // nthFibo(3); // 2
-var nthFibo = function(n){
-function getArray(num) {
-		if (num <= 0) {
-		return null;
-	} if (num === 1) {
-		return [0, 1];
-	}
+/*  I: A number n
+    O: A number, the nth fibonacci number 
+    C: Must use recursion
+    E: Returns null for negative inputs */
 
-	var next = getArray(num - 1);
-	next.push(next[next.length - 1] + next[next.length - 2]);
-  return next;
+var nthFibo = function (n) {
+  // If n is negative
+  if (n < 0) {
+    // Return null
+    return null;
+  } // Base case: Fibonacci sequence is made starting from n and subtracting from n until n reaches 1.  
+  if (n <= 1) {
+    // Return n, which will be the nth fibonacci after all recursion calls
+    return n;
+  }
+  // Recursive case: Make a fibonacci sequence n number of times 
+  return nthFibo(n - 1) + nthFibo(n - 2);
+
 }
-
-var fibArray = getArray(n);
-return fibArray[fibArray.length - 1];
-};
 
 // 26. Given an array of words, return a new array containing each word capitalized.
 // var words = ['i', 'am', 'learning', 'recursion'];
