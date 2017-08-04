@@ -477,13 +477,28 @@ for (var key in obj) {
 return sum;
 };
 
-// *** 29. Flatten an array containing nested arrays.
+// 29. Flatten an array containing nested arrays.
 // Example: flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 /*  I: A nested array
     O: A new array that is not nested
     C: Must use recursion
     E: ? */
+
 var flatten = function(arrays) {
+// Reduce the array with a new array as a seed
+return arrays.reduce(function(seed, current) {
+  // If the current value is an array
+  if (Array.isArray(current)){
+    // Add the result of recursive call to the new array
+    return seed.concat(flatten(current));
+  }
+  // Add each value to the new array
+  return seed.concat(current);
+}, []);
+};
+
+
+/* var flatten = function(arrays) {
   var newArray = [];
   for (var i = 0; i < arrays.length; i++){
   if (Array.isArray(arrays[i])) {
@@ -493,7 +508,7 @@ var flatten = function(arrays) {
     newArray.push(arrays[i]);
   } }
   return newArray;
-};
+}; */
 
 // 30. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {'p':1, 'o':2, 't':2, 'a':1}
