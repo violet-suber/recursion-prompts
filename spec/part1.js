@@ -400,8 +400,6 @@
 
     });
 
-
-
     describe('11. Modulo', function() {
 
       it('should return a number', function() {
@@ -424,7 +422,7 @@
         expect(modulo(-275, -502)).to.equal(-275 % -502);
         expect(modulo(-275, -274)).to.equal(-275 % -274);
         expect(modulo(-4, 2)).to.equal(-4 % 2);
-        expect(modulo(0, 32)).to.equal(0 % 32);
+        expect(modulo(0, 32)).to.equal(0 % 32); 
         expect(modulo(0, 0).toString()).to.equal('NaN');
       });
 
@@ -514,7 +512,7 @@
 
     describe('14. Greatest Common Divisor', function() {
 
-      it('should return a number', function() {
+     it('should return a number', function() {
         expect(typeof(gcd(4,36))).to.equal('number');
       });
 
@@ -523,7 +521,7 @@
         expect(gcd(24,88)).to.equal(8);
         expect(gcd(339,17)).to.equal(1);
         expect(gcd(126,900)).to.equal(18);
-      });
+      }); 
 
       it('should return null for negative integers', function() {
         expect(gcd(-4, 2)).to.equal(null);
@@ -532,11 +530,11 @@
         expect(gcd(7, -36)).to.equal(null);
         expect(gcd(-10, -58)).to.equal(null);
         expect(gcd(-92, -5)).to.equal(null);
-        // expect(gcd(0, 0)).to.equal(null);
-        // expect(gcd(0, 5)).to.equal(null);
-        // expect(gcd(5, 0)).to.equal(null);
-        // expect(gcd(-5, 0)).to.equal(null);
-        // expect(gcd(0, -5)).to.equal(null);
+        expect(gcd(0, 0)).to.equal(null);
+        expect(gcd(0, 5)).to.equal(null);
+        expect(gcd(5, 0)).to.equal(null);
+        expect(gcd(-5, 0)).to.equal(null);
+        expect(gcd(0, -5)).to.equal(null);
       });
 
       it('should use recursion by calling self', function () {
