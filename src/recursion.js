@@ -67,7 +67,26 @@ var isEven = function(n) {
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
+/*  I: A number
+    O: The sum of all the numbers below that number
+    C: Must use recursion
+    E: If the input is a negative number, return the sum of all the numbers up to zero starting from that number */
+
 var sumBelow = function(n) {
+  // Base case: n reaching 0
+  if (n === 0) {
+    // Return n
+    return n;
+  } // Edge case: n is a negative number
+  if (n < 0) {
+    // Add current n to recursive call of n, adding 1 so it can get each next number to add until 0.
+    return (n + 1) + sumBelow(n + 1);
+  }
+  // Recursive case: add current n to recursive call of n, subtracting 1 so it can get each next number to add until 0.
+  return (n - 1) + sumBelow(n - 1);
+};
+
+/* var sumBelow = function(n) {
   function getArray(num) {
     var array = [];
     array.push(num);
@@ -83,7 +102,7 @@ var sumBelow = function(n) {
   return intArray.reduce(function(seed, current) {
   return seed + current;
 	});
-};
+}; */
 
 // 6. Get the integers in range (x, y).
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
